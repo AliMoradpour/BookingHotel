@@ -8,16 +8,16 @@ const LocationList = () => {
   return (
     <div className="nearbyLocation">
       <h2>Nearby locations</h2>
-      <div className="LocationList">
+      <div className="locationList">
         {data.map((item) => (
           <div className="locationItem" key={item.key}>
             <img src={item.picture_url.url} alt={item.name} />
             <div className="locationItemDesc">
-              <p className="location">{item.smart_location}</p>
+              <p className="locaiton">{item.smart_location}</p>
               <p className="name">{item.name}</p>
               <p className="price">
                 €&nbsp;{item.price}&nbsp;
-                <span>night</span>
+                <span></span>
               </p>
             </div>
           </div>

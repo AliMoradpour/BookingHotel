@@ -6,6 +6,7 @@ import { MdLocationOn } from "react-icons/md";
 import { HiCalendar, HiMinus, HiPlus, HiSearch } from "react-icons/hi";
 import useOutSideClick from "../../hooks/useOutSideClick";
 import { format } from "date-fns";
+import { createSearchParams, useNavigate } from "react-router-dom";
 
 const Header = () => {
   const [destination, setDestination] = useState("");
@@ -33,6 +34,20 @@ const Header = () => {
     });
   };
 
+  const navigate = useNavigate();
+
+  const handleSearch = () => {
+    const encodedParams = createSearchParams({
+      date: JSON.stringify(date),
+      destination,
+      options: JSON.stringify(options),
+    });
+    navigate({
+      pathname: "/hotels",
+      search: encodedParams.toString()
+    })
+  };
+
   return (
     <div className="header">
       <div className="headerSearch">
@@ -52,7 +67,10 @@ const Header = () => {
         <div className="headerSearchItem">
           <HiCalendar className="headerIcon dateIcon" />
           <div onClick={() => setOpenDate(!openDate)} className="dateDropDown">
-            {`${format(date[0].startDate,"MM/dd/yyyy")} to ${format(date[0].endDate,"MM/dd/yyyy")}`}
+            {`${format(date[0].startDate, "MM/dd/yyyy")} to ${format(
+              date[0].endDate,
+              "MM/dd/yyyy"
+            )}`}
           </div>
           <span className="seperator"></span>
           {openDate && (
@@ -80,7 +98,7 @@ const Header = () => {
           <span className="seperator"></span>
         </div>
         <div className="headerSearchItem">
-          <button className="headerSearchBtn">
+          <button className="headerSearchBtn" onClick={handleSearch}>
             <HiSearch className="headerIcon" />
           </button>
         </div>
