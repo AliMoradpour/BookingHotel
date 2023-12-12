@@ -44,8 +44,8 @@ const Header = () => {
     });
     navigate({
       pathname: "/hotels",
-      search: encodedParams.toString()
-    })
+      search: encodedParams.toString(),
+    });
   };
 
   return (
@@ -55,7 +55,7 @@ const Header = () => {
           <MdLocationOn className="headerIcon locationIcon" />
           <input
             value={destination}
-            onchange={(e) => setDestination(e.target.value)}
+            onChange={(e) => setDestination(e.target.value)}
             type="text"
             placeholder="where to go ?"
             className="headerSearchInput"
