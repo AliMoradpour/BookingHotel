@@ -1,11 +1,9 @@
-import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
-import { useHotels } from "../context/HotelsProvider";
+import { MapContainer, Marker, Popup, TileLayer, useMap, useMapEvent } from "react-leaflet";
 import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import useGeoLocation from "../../hooks/useGeoLocation";
 
-const Map = () => {
-  const { isLoading, hotels } = useHotels();
+const Map = ({markerLocations}) => {
   const [mapCenter, setMapCenter] = useState([20, 3]);
   const [searchParams, setSearchParams] = useSearchParams();
   const lat = searchParams.get("lat");
@@ -40,9 +38,9 @@ const Map = () => {
         <button onClick={getPosition} className="getLocation">
           {isLoadingPosition ? "Loading ..." : "Use Your Location"}
         </button>
-
+        <DetectClick />
         <ChangeCenter position={mapCenter} />
-        {hotels.map((item) => (
+        {markerLocations.map((item) => (
           <Marker key={item.id} position={[item.latitude, item.longitude]}>
             <Popup>{item.host_location}</Popup>
           </Marker>
@@ -57,5 +55,13 @@ export default Map;
 function ChangeCenter({ position }) {
   const map = useMap();
   map.setView(position);
+  return null;
+}
+
+function DetectClick(){
+  const navigate = useNavigate();
+  useMapEvent({
+    click:e => navigate(`/bookmark?lat=${e.latlng.lat}&lng=${e.latlng.lng}`)
+  });
   return null;
 }
