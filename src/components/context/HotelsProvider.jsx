@@ -5,7 +5,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 
 const HotelContext = createContext();
-const BASE_URL = "http://localhost:5000/hotels";
+const BASE_URL = "http://localhost:5000/";
 
 const HotelsProvider = ({ children }) => {
   const [currentHotel, setCurrentHotel] = useState(null);
@@ -21,7 +21,7 @@ const HotelsProvider = ({ children }) => {
   async function getHotel(id) {
     setIsLoadingCurrentHotel(true);
     try {
-      const { data } = await axios.get(`${BASE_URL}/${id}`);
+      const { data } = await axios.get(`${BASE_URL}/hotels/${id}`);
       setIsLoadingCurrentHotel(false);
       setCurrentHotel(data);
     } catch (error) {
