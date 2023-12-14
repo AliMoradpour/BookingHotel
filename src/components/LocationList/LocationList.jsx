@@ -10,7 +10,7 @@ const LocationList = () => {
       <h2>Nearby locations</h2>
       <div className="locationList">
         {data.map((item) => (
-          <div className="locationItem" key={item.key}>
+          <div className="locationItem" key={item.id}>
             <img src={item.picture_url.url} alt={item.name} />
             <div className="locationItemDesc">
               <p className="locaiton">{item.smart_location}</p>

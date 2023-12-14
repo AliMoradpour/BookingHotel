@@ -19,8 +19,9 @@ export default function useFetch(url, query = "") {
         setIsLoading(false);
       }
     }
+
     fetchData();
-  }, [query, data]);
+  }, [query, url]);
 
   return { isLoading, data };
 }

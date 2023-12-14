@@ -4,11 +4,12 @@ import axios from "axios";
 import toast from "react-hot-toast";
 
 const BookmarkContext = createContext();
-const BASE_URL = "http://localhost:5000/";
+const BASE_URL = "http://localhost:5000";
 
 const BookmarkListProvider = ({ children }) => {
   const [currentBookmark, setcurrentBookmark] = useState(null);
-  const [isLoadingCurrentBookmark, setIsLoadingCurrentBookmark] = useState(false);
+  const [isLoadingCurrentBookmark, setIsLoadingCurrentBookmark] =
+    useState(false);
   const { isLoading, data: bookmarks } = useFetch(`${BASE_URL}/bookmarks`);
 
   async function getBookmark(id) {
