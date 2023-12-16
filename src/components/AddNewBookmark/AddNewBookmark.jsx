@@ -37,7 +37,7 @@ function AddNewBookmark() {
 
         setCityName(data.city || data.locality || "");
         setCountry(data.countryName);
-        setCountryCode(data.countryCode);
+        setCountryCode(data.countryCode); // FR, IR ,...
       } catch (error) {
         setGeoCodingError(error.message);
       } finally {
@@ -90,6 +90,7 @@ function AddNewBookmark() {
             id="country"
           />
           <ReactCountryFlag className="flag" svg countryCode={countryCode} />
+          {/* <span className="flag">{countryCode}</span> */}
         </div>
         <div className="buttons">
           <button

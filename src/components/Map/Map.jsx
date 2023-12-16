@@ -1,13 +1,19 @@
-import { MapContainer, Marker, Popup, TileLayer, useMap, useMapEvent } from "react-leaflet";
+import {
+  MapContainer,
+  Marker,
+  Popup,
+  TileLayer,
+  useMap,
+  useMapEvent,
+} from "react-leaflet";
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import useGeoLocation from "../../hooks/useGeoLocation";
 import useUrlLocation from "../../hooks/useUrlLocation";
 
-const Map = ({markerLocations}) => {
-  const [mapCenter, setMapCenter] = useState([20, 3]);
-  const [lat , lng]= useUrlLocation();
-
+function Map({ markerLocations }) {
+  const [mapCenter, setMapCenter] = useState([20, 4]);
+  const [lat, lng] = useUrlLocation();
   const {
     isLoading: isLoadingPosition,
     position: geoLocationPosition,
@@ -28,15 +34,16 @@ const Map = ({markerLocations}) => {
       <MapContainer
         className="map"
         center={mapCenter}
-        zoom={13}
-        scrollWheelZoom={true}>
+        zoom={6}
+        scrollWheelZoom={true}
+      >
+        <button onClick={getPosition} className="getLocation">
+          {isLoadingPosition ? "Loading ..." : " Use Your Location"}
+        </button>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png"
         />
-        <button onClick={getPosition} className="getLocation">
-          {isLoadingPosition ? "Loading ..." : "Use Your Location"}
-        </button>
         <DetectClick />
         <ChangeCenter position={mapCenter} />
         {markerLocations.map((item) => (
@@ -47,8 +54,7 @@ const Map = ({markerLocations}) => {
       </MapContainer>
     </div>
   );
-};
-
+}
 export default Map;
 
 function ChangeCenter({ position }) {
@@ -57,10 +63,11 @@ function ChangeCenter({ position }) {
   return null;
 }
 
-function DetectClick(){
+function DetectClick() {
   const navigate = useNavigate();
   useMapEvent({
-    click:e => navigate(`/bookmark/add?lat=${e.latlng.lat}&lng=${e.latlng.lng}`)
+    click: (e) =>
+      navigate(`/bookmark/add?lat=${e.latlng.lat}&lng=${e.latlng.lng}`),
   });
   return null;
 }

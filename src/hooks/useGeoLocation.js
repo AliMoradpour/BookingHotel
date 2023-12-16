@@ -8,6 +8,7 @@ export default function useGeoLocation() {
   function getPosition() {
     if (!navigator.geolocation)
       return setError("Your browser does not support geolocation");
+
     setIsLoading(true);
     navigator.geolocation.getCurrentPosition(
       (pos) => {
@@ -23,6 +24,5 @@ export default function useGeoLocation() {
       }
     );
   }
-
-  return {isLoading , error , position , getPosition}
+  return { isLoading, error, position, getPosition };
 }
